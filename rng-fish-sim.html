@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>RNG Fish Calculator — Light (Modern)</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
+
+    <style>
+      :root {
+        --bg: #f7fbff;
+        --card: #ffffff;
+        --muted: #6b7280;
+        --accent: #2563eb;
+        --glass: rgba(37, 99, 235, 0.06);
+      }
+      body {
+        background: linear-gradient(180deg, #f4f8ff 0%, #eef6ff 100%);
+        color: #0f172a;
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+      }
+      .card-modern {
+        background: var(--card);
+        border-radius: 12px;
+        box-shadow: 0 6px 24px rgba(16, 24, 40, 0.06);
+        border: 1px solid rgba(15, 23, 42, 0.04);
+      }
+      .form-select,
+      .form-control {
+        border-radius: 8px;
+      }
+      .small-muted {
+        color: var(--muted);
+      }
+      .result-value {
+        font-weight: 700;
+        color: #0b1220;
+      }
+      .mono {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
+          monospace;
+      }
+      .accent-btn {
+        background: linear-gradient(90deg, #2563eb, #1e40af);
+        color: #fff;
+        border: none;
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.12);
+      }
+      .accent-btn:active {
+        transform: translateY(1px);
+      }
+      .table-sm td,
+      .table-sm th {
+        padding: 0.45rem 0.6rem;
+        vertical-align: middle;
+      }
+      .note {
+        font-size: 0.92rem;
+        color: var(--muted);
+      }
+      .kbd {
+        background: var(--glass);
+        padding: 0.15rem 0.5rem;
+        border-radius: 6px;
+        font-weight: 600;
+        color: #0b1220;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <!-- Header Card -->
+          <div class="card-modern p-4 mb-4">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <h2 class="mb-1">🎣 RNG Fish It</h2>
+                <div class="small-muted">
+                  Hitung estimasi waktu hingga target probabilitas —
+                  termasuk hingga ≈100%.
+                </div>
+              </div>
+              <div class="text-end">
+                <div class="small-muted">New RNG — linear luck multiplier</div>
+                <div class="note mt-2">
+                  Total luck = Rod + Bobber + Enchant1 + Enchant2 + Extra.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Card -->
+          <div class="card-modern p-4 mb-4">
+            <form id="calcForm" onsubmit="return false;">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Pilih Ikan (target)</label>
+                  <select id="fish" class="form-select">
+                    <!-- FULL fish list -->
+                    <optgroup label="Fisherman Island">
+                      <option value="750000">
+                        Crystal Crab — 1/750K (110.52K - 130.96K)
+                      </option>
+                      <option value="1500000">
+                        Orca — 1/1.50M (115.47K - 126.78K)
+                      </option>
+                    </optgroup>
+
+                    <optgroup label="Ocean">
+                      <option value="250000">
+                        Blob Shark — 1/250K (532.2 - 590.5)
+                      </option>
+                      <option value="500000">
+                        Ghost Shark — 1/500K (1.09K - 1.21K)
+                      </option>
+                      <option value="3000000">
+                        Worm Fish — 1/3M (106.95K - 112.04K)
+                      </option>
+                    </optgroup>
+
+                    <optgroup label="Kohana">
+                      <option value="3000000">
+                        Lochnes Monster — 1/3M (260K - 295K)
+                      </option>
+                    </optgroup>
+
+                    <optgroup label="Coral Reefs">
+                      <option value="250000">
+                        Eerie Shark — 1/250K (1.01K - 1.83K)
+                      </option>
+                      <option value="2500000">
+                        Monster Shark — 1/2.50M (130.41K - 165.61K)
+                      </option>
+                    </optgroup>
+
+                    <optgroup label="Esoteric Depths">
+                      <option value="300000">
+                        Thin Armor Shark — 1/300K (14.15K - 21.23K)
+                      </option>
+                      <option value="3000000">
+                        Scare — 1/3M (142.33K - 165.10K)
+                      </option>
+                    </optgroup>
+
+                    <optgroup label="Tropical Grove">
+                      <option value="950000">
+                        Great Whale — 1/950K (90.70K - 116.04K)
+                      </option>
+                    </optgroup>
+
+                    <optgroup label="Crater Island">
+                      <option value="500000">
+                        Frostborn Shark — 1/500K (7.52K - 8.44K)
+                      </option>
+                    </optgroup>
+
+                    <optgroup label="Treasure Room - Lost Isle">
+                      <option value="800000">
+                        Queen Crab — 1/800K (130.52K - 160.96K)
+                      </option>
+                      <option value="1200000">
+                        King Crab — 1/1.20M (130.52K - 160.96K)
+                      </option>
+                    </optgroup>
+
+                    <optgroup label="Sisyphus Statue - Lost Isle">
+                      <option value="750000">
+                        Panther Eel — 1/750K (90.67K - 113.40K)
+                      </option>
+                      <option value="800000">
+                        Giant Squid — 1/800K (103.53K - 112.80K)
+                      </option>
+                      <option value="3500000">
+                        Robot Kraken — 1/3.50M (259.82K - 389.73K)
+                      </option>
+                    </optgroup>
+
+                    <optgroup label="Admin Event Ocean">
+                      <option value="1000000">
+                        Ghost Worm Fish — 1/1M (106.95K - 112.04K)
+                      </option>
+                      <option value="4000000">
+                        Megalodon — 1/4M (297K - 365K)
+                      </option>
+                    </optgroup>
+
+                    <optgroup label="Ancient Jungle">
+                      <option value="1500000">
+                        King Jelly — 1/1.5M (160K - 190K)
+                      </option>
+                      <option value="800000">
+                        Mosasaurus Shark — 1/800K (80.75K - 95.88K)
+                      </option>
+                    </optgroup>
+
+                    <optgroup label="Ancient Jungle - Sacred Temple">
+                      <option value="4000000">
+                        Elshark Grand Maja — 1/4M (450K - 520K)
+                      </option>
+                      <option value="2000000">
+                        Bone Whale — 1/2M (230.88K - 275.68K)
+                      </option>
+                    </optgroup>
+
+                    <optgroup label="Ancient Jungle - Underground Cellar">
+                      <option value="2000000">
+                        Bone Whale — 1/2M (230.88K - 275.68K)
+                      </option>
+                    </optgroup>
+                  </select>
+                  <div class="small-muted mt-1">
+                    Pilih 1 ikan target — kalkulator hanya menghitung untuk
+                    target ini.
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Pilih Rod</label>
+                  <select id="rod" class="form-select">
+                    <option value="380">Hazmat Rod (380%)</option>
+                    <option value="455">Ares Rod (455%)</option>
+                    <option value="530">Angler Rod (530%)</option>
+                    <option value="610">Ghostfinn Rod (610%)</option>
+                    <option value="760">Bamboo Rod (760%)</option>
+                    <option value="1111">Element Rod (1111%)</option>
+                  </select>
+                  <div class="small-muted mt-1">
+                    Rekomendasi: Ares ke atas untuk konsistensi.
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Pilih Bobber / Bait</label>
+                  <select id="bobber" class="form-select">
+                    <option value="130">Royal Bait (+130%)</option>
+                    <option value="170">Dark Matter Bait (+170%)</option>
+                    <option value="220">Corrupt Bait (+220%)</option>
+                    <option value="260">Aether Bait (+260%)</option>
+                    <option value="320">Floral Bait (+320%)</option>
+                    <option value="380">Singularity Bait (+380%)</option>
+                  </select>
+                  <div class="small-muted mt-1">
+                    Bobber juga dapat memberikan efek mutation/shiny pada
+                    beberapa jenis.
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Enchant #1</label>
+                  <select id="ench1" class="form-select">
+                    <option value="0">None</option>
+
+                    <optgroup label="🍀 Luck Boosters">
+                      <option value="30">Leprechaun I (+30% luck)</option>
+                      <option value="50">Leprechaun II (+50% luck)</option>
+                      <option value="20">
+                        Empowered I (+20% luck, +10% reel speed)
+                      </option>
+                      <option value="60">
+                        Stargazer I (+60% luck at night)
+                      </option>
+                      <option value="80">
+                        Storm Hunter I (+80% luck during rain)
+                      </option>
+                      <option value="3800">
+                        Prismatic I (+3800% after threshold)
+                      </option>
+                    </optgroup>
+
+                    <optgroup label="🧬 Mutation & Special Fish">
+                      <option value="-75" data-mutation="75">
+                        Cursed I (-75% luck, +75% mutation)
+                      </option>
+                      <option value="0" data-mutation="10">
+                        Mutation Hunter I (+10% mutation)
+                      </option>
+                      <option value="0" data-mutation="30">
+                        Mutation Hunter II (+30% mutation)
+                      </option>
+                      <option value="0" data-mutation="10">
+                        Gold Digger I (10% gold mutation)
+                      </option>
+                      <option value="0" data-shiny="10">
+                        Glistening I (+10% shiny)
+                      </option>
+                      <option value="0" data-bonus="10">
+                        Big Hunter I (Fish 10% bigger)
+                      </option>
+                    </optgroup>
+
+                    <optgroup label="⚡ Utility">
+                      <option value="0">Reeler I (+7% reel speed)</option>
+                      <option value="0">Xperienced I (1.5× XP)</option>
+                      <option value="0">
+                        Perfection (guarantee perfect throws while AF)
+                      </option>
+                    </optgroup>
+                  </select>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label">Enchant #2</label>
+                  <select id="ench2" class="form-select">
+                    <option value="0">None</option>
+
+                    <optgroup label="🍀 Luck Boosters">
+                      <option value="30">Leprechaun I (+30% luck)</option>
+                      <option value="50">Leprechaun II (+50% luck)</option>
+                      <option value="20">
+                        Empowered I (+20% luck, +10% reel speed)
+                      </option>
+                      <option value="60">
+                        Stargazer I (+60% luck at night)
+                      </option>
+                      <option value="80">
+                        Storm Hunter I (+80% luck during rain)
+                      </option>
+                      <option value="3800">
+                        Prismatic I (+3800% after threshold)
+                      </option>
+                    </optgroup>
+
+                    <optgroup label="🧬 Mutation & Special Fish">
+                      <option value="-75" data-mutation="75">
+                        Cursed I (-75% luck, +75% mutation)
+                      </option>
+                      <option value="0" data-mutation="10">
+                        Mutation Hunter I (+10% mutation)
+                      </option>
+                      <option value="0" data-mutation="30">
+                        Mutation Hunter II (+30% mutation)
+                      </option>
+                      <option value="0" data-mutation="10">
+                        Gold Digger I (10% gold mutation)
+                      </option>
+                      <option value="0" data-shiny="10">
+                        Glistening I (+10% shiny)
+                      </option>
+                      <option value="0" data-bonus="10">
+                        Big Hunter I (Fish 10% bigger)
+                      </option>
+                    </optgroup>
+
+                    <optgroup label="⚡ Utility">
+                      <option value="0">Reeler I (+7% reel speed)</option>
+                      <option value="0">Xperienced I (1.5× XP)</option>
+                      <option value="0">
+                        Perfection (guarantee perfect throws while AF)
+                      </option>
+                    </optgroup>
+                  </select>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">Extra Luck (%)</label>
+                  <input
+                    id="extra"
+                    type="number"
+                    class="form-control"
+                    value="0" />
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">Lemparan / hari</label>
+                  <input
+                    id="throwsPerDay"
+                    type="number"
+                    class="form-control"
+                    value="5000"
+                    min="1" />
+                </div>
+
+                <div class="col-md-4 d-flex align-items-end">
+                  <button id="btnCalc" class="btn accent-btn w-100">
+                    Hitung (New RNG)
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Result Card (modern light) -->
+          <div id="resultCard" class="card-modern p-4 mb-4 d-none">
+            <h5 class="mb-3">📊 Hasil Ringkas</h5>
+
+            <div class="row gy-2">
+              <div class="col-6 col-md-3">
+                <div class="small-muted">Total Luck</div>
+                <div class="result-value mono" id="outLuck">—</div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="small-muted">Peluang / lempar</div>
+                <div class="result-value mono" id="outPerThrow">—</div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="small-muted">Lemparan untuk 50%</div>
+                <div class="result-value mono" id="outN50">—</div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="small-muted">Estimasi jam (@throws/day)</div>
+                <div class="result-value mono" id="outHours50">—</div>
+              </div>
+
+              <div class="col-12 mt-3">
+                <div class="small-muted mb-2">
+                  Tabel Estimasi — lemparan dan jam untuk target probabilitas
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-sm table-borderless">
+                    <thead>
+                      <tr class="small-muted">
+                        <th style="width: 20%">Target</th>
+                        <th style="width: 40%">Lemparan</th>
+                        <th style="width: 40%">Estimasi (Jam)</th>
+                      </tr>
+                    </thead>
+                    <tbody id="progressTable"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="col-12 mt-3">
+                <div class="small-muted">Catatan</div>
+                <div class="note" id="outNotes">
+                  Menggunakan sistem RNG baru: luck dikalikan langsung ke
+                  peluang per lempar.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center small-muted mb-5">
+            Tip: untuk hasil lebih cepat gunakan rod & bobber tinggi dan enchant
+            luck booster. Cursed I mengurangi luck namun meningkatkan mutation.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // helpers
+      function fmtNumber(n) {
+        if (!isFinite(n)) return "—";
+        if (n >= 1e6) return Math.round(n).toLocaleString();
+        return Math.round(n).toLocaleString();
+      }
+      function fmtPercentFromProb(p) {
+        if (!isFinite(p)) return "—";
+        return (p * 100).toFixed(6).replace(/\.?0+$/, "") + " %";
+      }
+      function hoursFromThrows(throwsNeeded, throwsPerDay) {
+        if (!isFinite(throwsNeeded)) return Infinity;
+        const hoursPerDay = 24;
+        const throwsPerHour = throwsPerDay / hoursPerDay;
+        return throwsNeeded / throwsPerHour;
+      }
+
+      document.getElementById("btnCalc").addEventListener("click", () => {
+        // read inputs
+        const rarity = Number(document.getElementById("fish").value); // 1/x
+        const rod = Number(document.getElementById("rod").value);
+        const bobber = Number(document.getElementById("bobber").value);
+        const ench1Val = Number(document.getElementById("ench1").value);
+        const ench2Val = Number(document.getElementById("ench2").value);
+        const extra = Number(document.getElementById("extra").value || 0);
+        const throwsPerDay = Number(
+          document.getElementById("throwsPerDay").value || 2000
+        );
+
+        // read metadata (mutation/shiny)
+        const ench1El = document.getElementById("ench1").selectedOptions[0];
+        const ench2El = document.getElementById("ench2").selectedOptions[0];
+        const ench1Mutation = Number(
+          ench1El.getAttribute("data-mutation") || 0
+        );
+        const ench2Mutation = Number(
+          ench2El.getAttribute("data-mutation") || 0
+        );
+        const ench1Shiny = Number(ench1El.getAttribute("data-shiny") || 0);
+        const ench2Shiny = Number(ench2El.getAttribute("data-shiny") || 0);
+
+        const totalMutation = ench1Mutation + ench2Mutation;
+        const totalShiny = ench1Shiny + ench2Shiny;
+
+        // total luck percent
+        const totalLuck = rod + bobber + ench1Val + ench2Val + extra; // percent
+        const multiplier = 1 + totalLuck / 100;
+
+        // probabilities
+        const pBase = 1 / rarity;
+        const pEff = pBase * multiplier;
+
+        // safe guard: if pEff >= 1 treat as 1 (instant)
+        const p = pEff >= 1 ? 1 : pEff;
+
+        // 50% throws
+        let n50;
+        if (p <= 0) n50 = Infinity;
+        else n50 = Math.log(0.5) / Math.log(1 - p);
+
+        // hours for 50%
+        const hours50 =
+          n50 === Infinity ? Infinity : hoursFromThrows(n50, throwsPerDay);
+
+        // fill summary outputs
+        document.getElementById("outLuck").textContent =
+          totalLuck.toFixed(2) + " %";
+        document.getElementById("outPerThrow").textContent =
+          fmtPercentFromProb(p);
+        document.getElementById("outN50").textContent =
+          n50 === Infinity ? "Tak terhingga" : fmtNumber(n50) + " lemparan";
+        document.getElementById("outHours50").textContent =
+          hours50 === Infinity ? "Tak terhingga" : hours50.toFixed(2) + " jam";
+
+        // build progress table for targets 10%..100% (step 10), with 100% approximated by 99.9999%
+        const targets = [
+          10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 99, 99.9, 99.99, 99.999, 100,
+        ];
+        const tbody = document.getElementById("progressTable");
+        tbody.innerHTML = "";
+
+        for (const t of targets) {
+          const prob = t === 100 ? 0.999999 : t / 100;
+          let throwsNeeded;
+          if (p <= 0) {
+            throwsNeeded = Infinity;
+          } else {
+            // n = ln(1 - prob) / ln(1 - p)
+            throwsNeeded = Math.log(1 - prob) / Math.log(1 - p);
+          }
+          const hours =
+            throwsNeeded === Infinity
+              ? Infinity
+              : hoursFromThrows(throwsNeeded, throwsPerDay);
+
+          const tr = document.createElement("tr");
+          const label = t === 100 ? "≈100%" : t + "%";
+          tr.innerHTML = `
+          <td class="align-middle">${label}</td>
+          <td class="align-middle mono">${
+            throwsNeeded === Infinity
+              ? "—"
+              : fmtNumber(throwsNeeded) + " lemparan"
+          }</td>
+          <td class="align-middle mono">${
+            hours === Infinity ? "—" : hours.toFixed(2) + " jam"
+          }</td>
+        `;
+          tbody.appendChild(tr);
+        }
+
+        // notes text
+        let notes =
+          "Menggunakan sistem RNG baru: luck dikalikan langsung ke peluang per lempar.";
+        if (totalMutation > 0)
+          notes += " Mutation +" + totalMutation + "% active.";
+        if (totalShiny > 0) notes += " Shiny +" + totalShiny + "% active.";
+        if (ench1Val === 3800 || ench2Val === 3800)
+          notes += " Prismatic I: efek besar diasumsikan aktif (full charge).";
+
+        document.getElementById("outNotes").textContent = notes;
+
+        // show result card
+        document.getElementById("resultCard").classList.remove("d-none");
+
+        // scroll to result
+        document
+          .getElementById("resultCard")
+          .scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    </script>
+  </body>
+</html>
