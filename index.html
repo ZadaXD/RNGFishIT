@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>RNG Fish It - Secret Update</title>
+    <title>RNG Fish It - Complete Edition</title>
 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -15,7 +15,7 @@
         --bg: #f8fafc;
         --card: #ffffff;
         --muted: #64748b;
-        --accent: #0ea5e9; /* Sky blue accent */
+        --accent: #0ea5e9;
         --accent-dark: #0284c7;
         --glass: rgba(14, 165, 233, 0.08);
       }
@@ -69,14 +69,6 @@
       .accent-btn:active {
         transform: translateY(1px);
       }
-      .badge-custom {
-        background: var(--glass);
-        color: var(--accent-dark);
-        padding: 4px 8px;
-        border-radius: 6px;
-        font-size: 0.75rem;
-        font-weight: 600;
-      }
     </style>
   </head>
   <body>
@@ -88,11 +80,8 @@
               <div>
                 <h2 class="mb-1 fw-bold">🎣 RNG Fish It</h2>
                 <div class="small-muted">
-                  Kalkulator Estimasi (Secret Fish & New Enchants)
+                  Kalkulator Estimasi (All Enchants Included)
                 </div>
-              </div>
-              <div class="text-end d-none d-sm-block">
-                <span class="badge-custom">Updated: Secret/Shark/Stargazer</span>
               </div>
             </div>
           </div>
@@ -107,61 +96,49 @@
                       <option value="750000">Crystal Crab — 1/750K</option>
                       <option value="1500000">Orca — 1/1.5M</option>
                     </optgroup>
-
                     <optgroup label="Ocean">
                       <option value="250000">Blob Shark — 1/250K</option>
                       <option value="500000">Ghost Shark — 1/500K</option>
                       <option value="3000000">Worm Fish — 1/3M</option>
                     </optgroup>
-
                     <optgroup label="Kohana">
                       <option value="3000000">Lochnes Monster — 1/3M</option>
                     </optgroup>
-
                     <optgroup label="Coral Reefs">
                       <option value="250000">Eerie Shark — 1/250K</option>
                       <option value="2500000">Monster Shark — 1/2.5M</option>
                     </optgroup>
-
                     <optgroup label="Esoteric Depths">
                       <option value="300000">Thin Armor Shark — 1/300K</option>
                       <option value="3000000">Scare — 1/3M</option>
                     </optgroup>
-
                     <optgroup label="Tropical Grove">
                       <option value="950000">Great Whale — 1/950K</option>
                     </optgroup>
-
                     <optgroup label="Crater Island">
                       <option value="500000">Frostborn Shark — 1/500K</option>
                     </optgroup>
-
                     <optgroup label="Treasure Room - Lost Isle">
                       <option value="800000">Queen Crab — 1/800K</option>
                       <option value="1200000">King Crab — 1/1.2M</option>
                     </optgroup>
-
                     <optgroup label="Sisyphus Statue - Lost Isle">
                       <option value="750000">Panther Eel — 1/750K</option>
                       <option value="800000">Giant Squid — 1/800K</option>
                       <option value="3500000">Robot Kraken — 1/3.5M</option>
                     </optgroup>
-
                     <optgroup label="Admin Event Ocean">
                       <option value="1000000">Ghost Worm Fish — 1/1M</option>
                       <option value="4000000">Megalodon — 1/4M</option>
                     </optgroup>
-
                     <optgroup label="Ancient Jungle">
                       <option value="1500000">King Jelly — 1/1.5M</option>
                       <option value="800000">Mosasaurus Shark — 1/800K</option>
                     </optgroup>
-
                     <optgroup label="Ancient Jungle - Sacred Temple">
                       <option value="4000000">Elshark Grand Maja — 1/4M</option>
                       <option value="2000000">Bone Whale — 1/2M</option>
                     </optgroup>
-                    
                     <optgroup label="Ancient Jungle - Underground Cellar">
                       <option value="2000000">Bone Whale — 1/2M</option>
                     </optgroup>
@@ -196,22 +173,39 @@
                   <label class="form-label fw-semibold">Enchant #1</label>
                   <select id="ench1" class="form-select">
                     <option value="0">None</option>
+
                     <optgroup label="🔥 New & Meta">
-                      <option value="140">Secret Hunter (+140% Secret Chance)</option>
-                      <option value="140">Stormhunter II (+140% Rain Luck)</option>
-                      <option value="100">Stargazer II (+100% Night Luck)</option>
-                      <option value="60" data-cond="shark">Shark Hunter (+60% Shark Chance)</option>
+                      <option value="140">Secret Hunter (+140% Secret)</option>
+                      <option value="60" data-cond="shark">Shark Hunter (+60% Shark Only)</option>
                     </optgroup>
-                    <optgroup label="🍀 Standard Luck">
+
+                    <optgroup label="🍀 Luck Boosters (Old & New)">
                       <option value="30">Leprechaun I (+30%)</option>
                       <option value="50">Leprechaun II (+50%)</option>
+                      <option value="20">Empowered I (+20%)</option>
+                      <option value="60">Stargazer I (+60% Night)</option>
+                      <option value="100">Stargazer II (+100% Night)</option>
+                      <option value="80">Storm Hunter I (+80% Rain)</option>
+                      <option value="140">Stormhunter II (+140% Rain)</option>
                       <option value="3800">Prismatic I (+3800% Active)</option>
                     </optgroup>
-                    <optgroup label="🧬 Mutation/Utility">
+
+                    <optgroup label="🧬 Mutation & Special">
+                       <option value="-75" data-mutation="75">Cursed I (-75% Luck, +75% Mut)</option>
+                       <option value="0" data-mutation="10">Mutation Hunter I (+10% Mut)</option>
+                       <option value="0" data-mutation="30">Mutation Hunter II (+30% Mut)</option>
                        <option value="0" data-mutation="40">Mutation Hunter III (+40% Mut)</option>
                        <option value="0" data-mutation="20">Fairy Hunter (+20% Fairy Dust)</option>
-                       <option value="-75" data-mutation="75">Cursed I (-75% Luck, +75% Mut)</option>
+                       <option value="0" data-mutation="10">Gold Digger I (10% Gold)</option>
+                       <option value="0" data-shiny="10">Glistening I (+10% Shiny)</option>
+                       <option value="0" data-bonus="10">Big Hunter I (Fish 10% Bigger)</option>
+                    </optgroup>
+
+                    <optgroup label="⚡ Utility">
+                       <option value="0">Reeler I (+7% Speed)</option>
                        <option value="0">Reeler II (+15% Speed)</option>
+                       <option value="0">Xperienced I (1.5× XP)</option>
+                       <option value="0">Perfection</option>
                     </optgroup>
                   </select>
                 </div>
@@ -220,22 +214,39 @@
                   <label class="form-label fw-semibold">Enchant #2</label>
                   <select id="ench2" class="form-select">
                     <option value="0">None</option>
-                    <optgroup label="🔥 New & Meta">
-                      <option value="140">Secret Hunter (+140% Secret Chance)</option>
-                      <option value="140">Stormhunter II (+140% Rain Luck)</option>
-                      <option value="100">Stargazer II (+100% Night Luck)</option>
-                      <option value="60" data-cond="shark">Shark Hunter (+60% Shark Chance)</option>
+
+                     <optgroup label="🔥 New & Meta">
+                      <option value="140">Secret Hunter (+140% Secret)</option>
+                      <option value="60" data-cond="shark">Shark Hunter (+60% Shark Only)</option>
                     </optgroup>
-                    <optgroup label="🍀 Standard Luck">
+
+                    <optgroup label="🍀 Luck Boosters (Old & New)">
                       <option value="30">Leprechaun I (+30%)</option>
                       <option value="50">Leprechaun II (+50%)</option>
+                      <option value="20">Empowered I (+20%)</option>
+                      <option value="60">Stargazer I (+60% Night)</option>
+                      <option value="100">Stargazer II (+100% Night)</option>
+                      <option value="80">Storm Hunter I (+80% Rain)</option>
+                      <option value="140">Stormhunter II (+140% Rain)</option>
                       <option value="3800">Prismatic I (+3800% Active)</option>
                     </optgroup>
-                    <optgroup label="🧬 Mutation/Utility">
+
+                    <optgroup label="🧬 Mutation & Special">
+                       <option value="-75" data-mutation="75">Cursed I (-75% Luck, +75% Mut)</option>
+                       <option value="0" data-mutation="10">Mutation Hunter I (+10% Mut)</option>
+                       <option value="0" data-mutation="30">Mutation Hunter II (+30% Mut)</option>
                        <option value="0" data-mutation="40">Mutation Hunter III (+40% Mut)</option>
                        <option value="0" data-mutation="20">Fairy Hunter (+20% Fairy Dust)</option>
-                       <option value="-75" data-mutation="75">Cursed I (-75% Luck, +75% Mut)</option>
+                       <option value="0" data-mutation="10">Gold Digger I (10% Gold)</option>
+                       <option value="0" data-shiny="10">Glistening I (+10% Shiny)</option>
+                       <option value="0" data-bonus="10">Big Hunter I (Fish 10% Bigger)</option>
+                    </optgroup>
+
+                    <optgroup label="⚡ Utility">
+                       <option value="0">Reeler I (+7% Speed)</option>
                        <option value="0">Reeler II (+15% Speed)</option>
+                       <option value="0">Xperienced I (1.5× XP)</option>
+                       <option value="0">Perfection</option>
                     </optgroup>
                   </select>
                 </div>
@@ -387,12 +398,12 @@
 
         // 8. Notes logic
         let notes = [];
-        if (e1.text.includes("Shark") && e1.val === 0) notes.push("Shark Hunter tidak aktif (bukan Hiu).");
-        if (e2.text.includes("Shark") && e2.val === 0) notes.push("Shark Hunter tidak aktif (bukan Hiu).");
+        if (e1.text.includes("Shark") && e1.val === 0) notes.push("Shark Hunter mati (bukan Hiu).");
+        if (e2.text.includes("Shark") && e2.val === 0) notes.push("Shark Hunter mati (bukan Hiu).");
         if (totalMut > 0) notes.push(`Mutation Chance +${totalMut}%.`);
-        if (fishName.includes("secret") || true) notes.push("Daftar ikan Secret (Secret Hunter efektif).");
+        if (fishName.includes("secret") || true) notes.push("Ikan Secret (Secret Hunter efektif).");
         
-        document.getElementById("outNotes").textContent = notes.join(" ") || "Normal calculation.";
+        document.getElementById("outNotes").textContent = notes.join(" ") || "Perhitungan standar.";
         document.getElementById("resultCard").classList.remove("d-none");
         document.getElementById("resultCard").scrollIntoView({behavior: "smooth", block: "center"});
       });
